@@ -112,6 +112,18 @@ function App() {
   const rightArmRight = [];
   const rightArmBack = [];
   const rightArmBottom = [];
+  const leftFootTop = [];
+  const leftFootFront = [];
+  const leftFootLeft = [];
+  const leftFootRight = [];
+  const leftFootBack = [];
+  const leftFootBottom = [];
+  const rightFootTop = [];
+  const rightFootFront = [];
+  const rightFootLeft = [];
+  const rightFootRight = [];
+  const rightFootBack = [];
+  const rightFootBottom = [];
   const adjstmnt = 0.5;
 
   var len = 64;
@@ -121,7 +133,7 @@ function App() {
     for(var j=0; j<8; j++){
       headFront.push([i, j, adjstmnt])
       pixelDict[i+","+j+","+adjstmnt] = ""
-      pngIndexDict[i+","+j+","+adjstmnt] = (len*(line-i))+skipLen+j;
+      pngIndexDict[i+","+j+","+adjstmnt] = (len*(line-j))+skipLen+i;
     }
   }
 
@@ -151,7 +163,7 @@ function App() {
     for(var j=0; j<8; j++){
       headBack.push([i, j, -7-adjstmnt])
       pixelDict[i+","+j+","+(-7-adjstmnt)] = ""
-      pngIndexDict[i+","+j+","+(-7-adjstmnt)] = (len*(line-i))+skipLen-j;
+      pngIndexDict[i+","+j+","+(-7-adjstmnt)] = (len*(line-j))+skipLen-i;
     }
   }
 
@@ -220,7 +232,7 @@ function App() {
   }
 
   line = 20;
-  skipLen = 38;  
+  skipLen = 39;  
   torsoAdj = 5.5;
   for(var i=0; i<8; i++){
     for(var j=0; j<12; j++){
@@ -242,7 +254,7 @@ function App() {
   }
 
   line = 19;
-  skipLen = 7;  
+  skipLen = 47;  
   torsoAdj = 2;
   for(var i=0; i<4; i++){
     for(var j=0; j<4; j++){
@@ -253,13 +265,255 @@ function App() {
   }
 
   line = 20;
-  skipLen = 7;  
+  skipLen = 47;  
   torsoAdj = 1.5;
   for(var i=0; i<4; i++){
     for(var j=0; j<12; j++){
       leftArmFront.push([-i-1.05, -j-1.05, -torsoAdj])
       pixelDict[(-i-1.05)+","+(-j-1.05)+","+(-torsoAdj)] = ""
       pngIndexDict[(-i-1.05)+","+(-j-1.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 20;
+  skipLen = 48;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftArmRight.push([-0.55, -j-1.05, -i-torsoAdj])
+      pixelDict[(-0.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(-0.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 20;
+  skipLen = 52;  
+  torsoAdj = 5.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftArmBack.push([-i-1.05, -j-1.05, -torsoAdj])
+      pixelDict[(-i-1.05)+","+(-j-1.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[(-i-1.05)+","+(-j-1.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 20;
+  skipLen = 43;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftArmLeft.push([-4.55, -j-1.05, -i-torsoAdj])
+      pixelDict[(-4.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(-4.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 19;
+  skipLen = 51;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      leftArmBottom.push([-i-1.05, -12.55, -j-torsoAdj])
+      pixelDict[(-i-1.05)+","+(-12.55)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[(-i-1.05)+","+(-12.55)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 51;
+  skipLen = 39; 
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      rightArmTop.push([-i+11.05, -0.55, -j-torsoAdj])
+      pixelDict[(-i+11.05)+","+(-0.55)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[(-i+11.05)+","+(-0.55)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 52;
+  skipLen = 39;  
+  torsoAdj = 1.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightArmFront.push([-i+11.05, -j-1.05, -torsoAdj])
+      pixelDict[(-i+11.05)+","+(-j-1.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[(-i+11.05)+","+(-j-1.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 52;
+  skipLen = 40;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightArmRight.push([11.55, -j-1.05, -i-torsoAdj])
+      pixelDict[(11.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(11.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 52;
+  skipLen = 44;  
+  torsoAdj = 5.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightArmBack.push([-i+11.05, -j-1.05, -torsoAdj])
+      pixelDict[(-i+11.05)+","+(-j-1.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[(-i+11.05)+","+(-j-1.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 52;
+  skipLen = 32;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightArmLeft.push([7.55, -j-1.05, -i-torsoAdj])
+      pixelDict[(7.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(7.55)+","+(-j-1.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 51;
+  skipLen = 43;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      rightArmBottom.push([-i+11.05, -12.55, -j-torsoAdj])
+      pixelDict[(-i+11.05)+","+(-12.55)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[(-i+11.05)+","+(-12.55)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 19;
+  skipLen = 7;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      leftFootTop.push([i, -12.60, -j-torsoAdj])
+      pixelDict[i+","+(-12.60)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[i+","+(-12.60)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 20;
+  skipLen = 7;  
+  torsoAdj = 1.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftFootFront.push([i, -j-13.05, -torsoAdj])
+      pixelDict[i+","+(-j-13.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[i+","+(-j-13.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 20;
+  skipLen = 8;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftFootRight.push([3.45, -j-13.05, -i-torsoAdj])
+      pixelDict[(3.45)+","+(-j-13.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(3.45)+","+(-j-13.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 20;
+  skipLen = 12;  
+  torsoAdj = 5.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftFootBack.push([i, -j-13.05, -torsoAdj])
+      pixelDict[i+","+(-j-13.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[i+","+(-j-13.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 20;
+  skipLen = 3;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      leftFootLeft.push([-0.5, -j-13.05, -i-torsoAdj])
+      pixelDict[(-0.5)+","+(-j-13.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(-0.5)+","+(-j-13.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 19;
+  skipLen = 11;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      leftFootBottom.push([i, -24.6, -j-torsoAdj])
+      pixelDict[i+","+(-24.6)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[i+","+(-24.6)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 51;
+  skipLen = 23;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      rightFootTop.push([i+4, -12.60, -j-torsoAdj])
+      pixelDict[(i+4)+","+(-12.60)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[(i+4)+","+(-12.60)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
+    }
+  }
+
+  line = 52;
+  skipLen = 23;  
+  torsoAdj = 1.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightFootFront.push([(i+4), -j-13.05, -torsoAdj])
+      pixelDict[(i+4)+","+(-j-13.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[(i+4)+","+(-j-13.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 52;
+  skipLen = 24;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightFootRight.push([7.45, -j-13.05, -i-torsoAdj])
+      pixelDict[(7.45)+","+(-j-13.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(7.45)+","+(-j-13.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 52;
+  skipLen = 28;  
+  torsoAdj = 5.5;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightFootBack.push([(i+4), -j-13.05, -torsoAdj])
+      pixelDict[(i+4)+","+(-j-13.05)+","+(-torsoAdj)] = ""
+      pngIndexDict[(i+4)+","+(-j-13.05)+","+(-torsoAdj)] = (len*(line+j))+skipLen+i;
+    }
+  }
+
+  line = 52;
+  skipLen = 19;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<12; j++){
+      rightFootLeft.push([3.5, -j-13.05, -i-torsoAdj])
+      pixelDict[(3.5)+","+(-j-13.05)+","+(-i-torsoAdj)] = ""
+      pngIndexDict[(3.5)+","+(-j-13.05)+","+(-i-torsoAdj)] = (len*(line+j))+skipLen-i;
+    }
+  }
+
+  line = 51;
+  skipLen = 27;  
+  torsoAdj = 2;
+  for(var i=0; i<4; i++){
+    for(var j=0; j<4; j++){
+      rightFootBottom.push([(i+4), -24.6, -j-torsoAdj])
+      pixelDict[(i+4)+","+(-24.6)+","+(-j-torsoAdj)] = ""
+      pngIndexDict[(i+4)+","+(-24.6)+","+(-j-torsoAdj)] = (len*(line-j))+skipLen-i;
     }
   }
 
@@ -270,6 +524,8 @@ function App() {
       }
     } 
     var canvas = document.createElement('canvas');
+    canvas.width = 64;
+    canvas.height = 64;
     var context = canvas.getContext("2d");
     var imageData=context.createImageData(64, 64);
     var data=imageData.data;
@@ -294,9 +550,10 @@ function App() {
     //console.log(data)
       
     context.putImageData(imageData, 0, 0); // at coords 0,0
+    //context.drawImage(imageData, 0, 0, 0, 0, 64, 64);
     var value=canvas.toDataURL("image/png");
     var win = window.open();
-    win.document.write('<iframe src="' + value  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+    //win.document.write('<iframe src="' + value  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
     
 
     // let png = new PNGlib(64, 64);
@@ -307,7 +564,8 @@ function App() {
     //   }
     // }
     // console.log(png.getBase64());
-    // document.write('<img src="data:image/png;base64,'+png.getBase64()+'">');
+    //win.document.write('<img src="data:image/png;base64,'+png.getBase64()+'">');
+    win.document.write('<img src="'+value+'">');
   }
 
   
@@ -357,6 +615,72 @@ function App() {
         ))}
         {leftArmFront.map(headPixel => (
           <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {leftArmRight.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x512E5F}/>
+        ))}
+        {leftArmBack.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x7D6608}/>
+        ))}
+        {leftArmLeft.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x512E5F}/>
+        ))}
+        {leftArmBottom.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0xF5B041}/>
+        ))}
+        {rightArmTop.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0xF5B041}/>
+        ))}
+        {rightArmFront.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {rightArmRight.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x512E5F}/>
+        ))}
+        {rightArmBack.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x7D6608}/>
+        ))}
+        {rightArmLeft.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x0B5345}/>
+        ))}
+        {rightArmBottom.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0xF5B041}/>
+        ))}
+        {leftFootTop.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {leftFootFront.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x7D6608}/>
+        ))}
+        {leftFootLeft.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x0B5345}/>
+        ))}
+        {leftFootRight.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x512E5F}/>
+        ))}
+        {leftFootBack.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {leftFootBottom.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0xF5B041}/>
+        ))}
+        {rightFootTop.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {rightFootFront.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x7D6608}/>
+        ))}
+        {rightFootLeft.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x0B5345}/>
+        ))}
+        {rightFootRight.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[0.01, 1, 1]} onClick={pixelClick} color={0x512E5F}/>
+        ))}
+        {rightFootBack.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 1, 0.01]} onClick={pixelClick} color={0x641E16}/>
+        ))}
+        {rightFootBottom.map(headPixel => (
+          <PixelPlane position={headPixel} scale={[1, 1, 1]} args={[1, 0.01, 1]} onClick={pixelClick} color={0xF5B041}/>
         ))}
         <Orbit />
         <ambientLight/>
