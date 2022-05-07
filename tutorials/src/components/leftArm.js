@@ -14,20 +14,22 @@ function LeftArm(props) {
   var adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
-      top.push([-i - 1.05, -0.55, -j - adjstmnt])
-      props.pixelDict[(-i - 1.05) + "," + (-0.55) + "," + (-j - adjstmnt)] = ""
-      props.pngIndexDict[(-i - 1.05) + "," + (-0.55) + "," + (-j - adjstmnt)] = (len * (line - j)) + skipLen - i;
+      top.push([-i - 5.5, 6.5, -j + adjstmnt])
+      if(props.pixelDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] == undefined)
+        props.pixelDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
 
   line = 20;
   skipLen = 47;
-  adjstmnt = 1.5;
+  adjstmnt = 2.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      front.push([-i - 1.05, -j - 1.05, -adjstmnt])
-      props.pixelDict[(-i - 1.05) + "," + (-j - 1.05) + "," + (-adjstmnt)] = ""
-      props.pngIndexDict[(-i - 1.05) + "," + (-j - 1.05) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen - i;
+      front.push([-i - 5.5, -j + 6, adjstmnt])
+      if(props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] == undefined)
+        props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -36,20 +38,22 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      right.push([-0.55, -j - 1.05, -i - adjstmnt])
-      props.pixelDict[(-0.55) + "," + (-j - 1.05) + "," + (-i - adjstmnt)] = ""
-      props.pngIndexDict[(-0.55) + "," + (-j - 1.05) + "," + (-i - adjstmnt)] = (len * (line + j)) + skipLen + i;
+      right.push([-5, -j + 6, -i + adjstmnt])
+      if(props.pixelDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+        props.pixelDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
   line = 20;
   skipLen = 52;
-  adjstmnt = 5.5;
+  adjstmnt = 1.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      back.push([-i - 1.05, -j - 1.05, -adjstmnt])
-      props.pixelDict[(-i - 1.05) + "," + (-j - 1.05) + "," + (-adjstmnt)] = ""
-      props.pngIndexDict[(-i - 1.05) + "," + (-j - 1.05) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
+      back.push([-i - 5.5, -j + 6, -adjstmnt])
+      if(props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] == undefined)
+        props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
@@ -58,9 +62,10 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      left.push([-4.55, -j - 1.05, -i - adjstmnt])
-      props.pixelDict[(-4.55) + "," + (-j - 1.05) + "," + (-i - adjstmnt)] = ""
-      props.pngIndexDict[(-4.55) + "," + (-j - 1.05) + "," + (-i - adjstmnt)] = (len * (line + j)) + skipLen - i;
+      left.push([-9, -j + 6, -i + adjstmnt])
+      if(props.pixelDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+        props.pixelDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -69,31 +74,32 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
-      bottom.push([-i - 1.05, -12.55, -j - adjstmnt])
-      props.pixelDict[(-i - 1.05) + "," + (-12.55) + "," + (-j - adjstmnt)] = ""
-      props.pngIndexDict[(-i - 1.05) + "," + (-12.55) + "," + (-j - adjstmnt)] = (len * (line - j)) + skipLen - i;
+      bottom.push([-i - 5.5, -5.5, -j + adjstmnt])
+      if(props.pixelDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] == undefined)
+        props.pixelDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] = "D3D3D3"
+      props.pngIndexDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
 
   return (
     <>
       {top.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={0xF5B041} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {front.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={0x641E16} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {right.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={0x512E5F} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {back.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={0x7D6608} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {left.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={0x512E5F} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {bottom.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={0xF5B041} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
     </>
   );

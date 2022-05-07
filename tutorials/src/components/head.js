@@ -8,16 +8,17 @@ function Head(props) {
   const back = [];
   const top = [];
   const bottom = [];
-  const adjstmnt = 0.5;
+  const adjstmnt = 1;
 
   var len = 64;
   var line = 15;
   var skipLen = 8;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
-      front.push([i, j, adjstmnt])
-      props.pixelDict[i + "," + j + "," + adjstmnt] = ""
-      props.pngIndexDict[i + "," + j + "," + adjstmnt] = (len * (line - j)) + skipLen + i;
+      front.push([i-3.5, j+8, 4])
+      if(props.pixelDict[i-3.5 + "," + (j+8) + "," + 4] == undefined)
+        props.pixelDict[i-3.5 + "," + (j+8) + "," + 4] = "D3D3D3"
+      props.pngIndexDict[i-3.5 + "," + (j+8) + "," + 4] = (len * (line - j)) + skipLen + i;
     }
   }
 
@@ -25,9 +26,10 @@ function Head(props) {
   skipLen = 7;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j > -8; j--) {
-      left.push([-adjstmnt, i, j])
-      props.pixelDict[-adjstmnt + "," + i + "," + j] = ""
-      props.pngIndexDict[-adjstmnt + "," + i + "," + j] = (len * (line - i)) + skipLen + j;
+      left.push([-adjstmnt-3, i+8, j+3.5])
+      if(props.pixelDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] == undefined)
+        props.pixelDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] = "D3D3D3"
+      props.pngIndexDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] = (len * (line - i)) + skipLen + j;
     }
   }
 
@@ -35,9 +37,10 @@ function Head(props) {
   skipLen = 16;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j > -8; j--) {
-      right.push([7 + adjstmnt, i, j])
-      props.pixelDict[(7 + adjstmnt) + "," + i + "," + j] = ""
-      props.pngIndexDict[(7 + adjstmnt) + "," + i + "," + j] = (len * (line - i)) + skipLen - j;
+      right.push([3 + adjstmnt, (i+8), j+3.5])
+      if(props.pixelDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] == undefined)
+        props.pixelDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] = "D3D3D3"
+      props.pngIndexDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] = (len * (line - i)) + skipLen - j;
     }
   }
 
@@ -45,9 +48,10 @@ function Head(props) {
   skipLen = 31;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
-      back.push([i, j, -7 - adjstmnt])
-      props.pixelDict[i + "," + j + "," + (-7 - adjstmnt)] = ""
-      props.pngIndexDict[i + "," + j + "," + (-7 - adjstmnt)] = (len * (line - j)) + skipLen - i;
+      back.push([i-3.5, (j+8), -4])
+      if(props.pixelDict[i-3.5 + "," + (j+8) + "," + (-4)] == undefined)
+        props.pixelDict[i-3.5 + "," + (j+8) + "," + (-4)] = "D3D3D3"
+      props.pngIndexDict[i-3.5 + "," + (j+8) + "," + (-4)] = (len * (line - j)) + skipLen - i;
     }
   }
 
@@ -55,9 +59,10 @@ function Head(props) {
   skipLen = 8;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
-      top.push([i, 7, -j])
-      props.pixelDict[i + ",7," + (-j)] = ""
-      props.pngIndexDict[i + ",7," + (-j)] = (len * (line - j)) + skipLen + i;
+      top.push([i-3.5, 15.5, -j+3.5])
+      if(props.pixelDict[i-3.5 + ",15.5," + (-j+3.5)] == undefined)
+        props.pixelDict[i-3.5 + ",15.5," + (-j+3.5)] = "D3D3D3"
+      props.pngIndexDict[i-3.5 + ",15.5," + (-j+3.5)] = (len * (line - j)) + skipLen + i;
     }
   }
 
@@ -65,31 +70,32 @@ function Head(props) {
   skipLen = 23;
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
-      bottom.push([i, 0, -j])
-      props.pixelDict[i + ",0," + (-j)] = ""
-      props.pngIndexDict[i + ",0," + (-j)] = (len * (line - j)) + skipLen - i;
+      bottom.push([i-3.5, 7.5, -j+3.5])
+      if(props.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] == undefined)
+        props.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] = "D3D3D3"
+      props.pngIndexDict[i-3.5 + ",7.5," + (-j+3.5)] = (len * (line - j)) + skipLen - i;
     }
   }
 
   return (
     <>
       {front.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={0x641E16} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel}/>
       ))}
       {left.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={0x512E5F} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {right.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={0x0B5345} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {back.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={0x7D6608} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {top.map(pixel => (
-        <PixelPlane position={pixel} color={0xF7DC6F} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
       {bottom.map(pixel => (
-        <PixelPlane position={pixel} color={0xA9CCE3} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
       ))}
     </>
   );
