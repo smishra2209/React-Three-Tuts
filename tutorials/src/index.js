@@ -11,6 +11,12 @@ import RightArm from './components/rightArm';
 import LeftFoot from './components/leftFoot';
 import RightFoot from './components/rightFoot';
 import ExportPng, { SaveModelPixels } from './util/skinUtil';
+import HeadOuter from './components/head-outer';
+import LeftArmOuter from './components/leftArm-outer';
+import TorsoOuter from './components/torso-outer';
+import RightArmOuter from './components/rightArm-outer';
+import LeftFootOuter from './components/leftFoot-outer';
+import RightFootOuter from './components/rightFoot-outer';
 
 const GROUP = 'Edit';
 const pixelDict = [];
@@ -26,17 +32,22 @@ const pngIndexDict = [];
 function setupSkin(headVisible, torsoVisible, leftArmVisible, rightArmVisible, leftFootVisible, rightFootVisible, innerBodyVisible, outerBodyVisible) {
   return (
     <>
-      <group name='innerbody' visible={innerBodyVisible}>
+      {innerBodyVisible?<group name='innerbody'>
         {headVisible ? <Head pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="head" /> : null}
         {torsoVisible ? <Torso pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="torso" /> : null}
         {leftArmVisible ? <LeftArm pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftArm" /> : null}
         {rightArmVisible ? <RightArm pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightArm" /> : null}
         {leftFootVisible ? <LeftFoot pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftFoot" /> : null}
         {rightFootVisible ? <RightFoot pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightFoot" /> : null}
-      </group>
-      <group name='outerbody' visible={outerBodyVisible}>
-
-      </group>
+      </group>: null}
+      {outerBodyVisible?<group name='outerbody'>
+        {headVisible ? <HeadOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="head" /> : null}
+        {torsoVisible ? <TorsoOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="torso" /> : null}
+        {leftArmVisible ? <LeftArmOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftArm" /> : null}
+        {rightArmVisible ? <RightArmOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightArm" /> : null}
+        {leftFootVisible ? <LeftFootOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftFoot" /> : null}
+        {rightFootVisible ? <RightFootOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightFoot" /> : null}
+      </group>: null}
     </>
   );
 }
@@ -98,6 +109,12 @@ function Skin() {
     type: 'button',
     onClick: () => {
       Promise.resolve(SaveModelPixels(children, pixelDict)).then(setInnerBodyVisible(innerBodyVisible => !innerBodyVisible))
+    }
+  });
+  useControl('Outer Body', {
+    type: 'button',
+    onClick: () => {
+      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setOuterBodyVisible(outerBodyVisible => !outerBodyVisible))
     }
   });
 

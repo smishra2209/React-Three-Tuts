@@ -1,5 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
+const defaultColor = "FF8D29";
 function LeftFoot(props) {
   const top = [];
   const front = [];
@@ -16,7 +17,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 4; j++) {
       top.push([i - 4, -6.5, -j + adjstmnt])
       if (props.pixelDict[i - 4 + "," + (-6.5) + "," + (-j + adjstmnt)] == undefined)
-        props.pixelDict[i - 4 + "," + (-6.5) + "," + (-j + adjstmnt)] = "D3D3D3"
+        props.pixelDict[i - 4 + "," + (-6.5) + "," + (-j + adjstmnt)] = defaultColor
       props.pngIndexDict[i - 4 + "," + (-6.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
@@ -28,7 +29,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 12; j++) {
       front.push([i - 4, -j - 7, adjstmnt])
       if (props.pixelDict[i - 4 + "," + (-j - 7) + "," + (adjstmnt)] == undefined)
-        props.pixelDict[i - 4 + "," + (-j - 7) + "," + (adjstmnt)] = "D3D3D3"
+        props.pixelDict[i - 4 + "," + (-j - 7) + "," + (adjstmnt)] = defaultColor
       props.pngIndexDict[i - 4 + "," + (-j - 7) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -40,7 +41,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 12; j++) {
       right.push([-0.5, -j - 7, -i + adjstmnt])
       if (props.pixelDict[(-0.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] == undefined)
-        props.pixelDict[(-0.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = "D3D3D3"
+        props.pixelDict[(-0.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = defaultColor
       props.pngIndexDict[(-0.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -52,7 +53,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 12; j++) {
       back.push([i - 4, -j - 7, -adjstmnt])
       if (props.pixelDict[i - 4 + "," + (-j - 7) + "," + (-adjstmnt)] == undefined)
-        props.pixelDict[i - 4 + "," + (-j - 7) + "," + (-adjstmnt)] = "D3D3D3"
+        props.pixelDict[i - 4 + "," + (-j - 7) + "," + (-adjstmnt)] = defaultColor
       props.pngIndexDict[i - 4 + "," + (-j - 7) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -64,7 +65,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 12; j++) {
       left.push([-4.5, -j - 7, -i + adjstmnt])
       if (props.pixelDict[(-4.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] == undefined)
-        props.pixelDict[(-4.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = "D3D3D3"
+        props.pixelDict[(-4.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = defaultColor
       props.pngIndexDict[(-4.5) + "," + (-j - 7) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -76,7 +77,7 @@ function LeftFoot(props) {
     for (var j = 0; j < 4; j++) {
       bottom.push([i - 4, -18.5, -j + adjstmnt])
       if (props.pixelDict[i - 4 + "," + (-18.5) + "," + (-j + adjstmnt)] == undefined)
-        props.pixelDict[i - 4 + "," + (-18.5) + "," + (-j + adjstmnt)] = "D3D3D3"
+        props.pixelDict[i - 4 + "," + (-18.5) + "," + (-j + adjstmnt)] = defaultColor
       props.pngIndexDict[i - 4 + "," + (-18.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }

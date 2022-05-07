@@ -12,7 +12,7 @@ function ExportPng(children, pixelDict, pngIndexDict) {
   if (children != null && children[2] != null && children[2].children != null) {
     const innerbody = children[2].children;
     for (var i = 0; i < innerbody.length; i++) {
-      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhysicalMaterial") {
+      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhongMaterial") {
         pixelDict[innerbody[i].position.x + "," + innerbody[i].position.y + "," + innerbody[i].position.z] = innerbody[i].material.color.getHexString();
       }
     }
@@ -20,7 +20,7 @@ function ExportPng(children, pixelDict, pngIndexDict) {
   if (children != null && children[3] != null && children[3].children != null) {
     const outerbody = children[3].children;
     for (var i = 0; i < outerbody.length; i++) {
-      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhysicalMaterial") {
+      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhongMaterial") {
         pixelDict[outerbody[i].position.x + "," + outerbody[i].position.y + "," + outerbody[i].position.z] = outerbody[i].material.color.getHexString();
       }
     }
@@ -55,10 +55,8 @@ export function SaveModelPixels(children, pixelDict) {
   console.log(children)
   if (children != null && children[2] != null && children[2].children != null) {
     const innerbody = children[2].children;
-    console.log("Inside inner body")
     for (var i = 0; i < innerbody.length; i++) {
-      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhysicalMaterial") {
-        console.log("Inside Mesh")
+      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhongMaterial") {
         pixelDict[innerbody[i].position.x + "," + innerbody[i].position.y + "," + innerbody[i].position.z] = innerbody[i].material.color.getHexString();
       }
     }
@@ -66,7 +64,7 @@ export function SaveModelPixels(children, pixelDict) {
   if (children != null && children[3] != null && children[3].children != null) {
     const outerbody = children[3].children;
     for (var i = 0; i < outerbody.length; i++) {
-      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhysicalMaterial") {
+      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhongMaterial") {
         pixelDict[outerbody[i].position.x + "," + outerbody[i].position.y + "," + outerbody[i].position.z] = outerbody[i].material.color.getHexString();
       }
     }

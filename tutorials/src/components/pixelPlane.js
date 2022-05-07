@@ -8,7 +8,7 @@ const pixelClick = e => {
   console.log(e.object.material.color)
   e.object.material.color.setHex("0x000000");
   console.log(e.object.material.color)
-  e.object.material.transmission = 0;
+  //e.object.material.transmission = 0;
 }
 
 const PixelPlane = props => {
@@ -17,10 +17,11 @@ const PixelPlane = props => {
     // useFrame(state => {    
     //   ref.current.color.setHex(color);
     // })
+    const scale = props.outer?[2,2,2]:[1,1,1]
     return (
-      <mesh {...props} scale={[1,1,1]} onClick={pixelClick}>
+      <mesh {...props} scale={scale} onClick={pixelClick}>
         <boxGeometry args={props.args}/>
-        <meshPhysicalMaterial ref={ref} side={DoubleSide} transparent={true} transmission={0} color={new THREE.Color(color)}/>
+        <meshPhongMaterial ref={ref} side={DoubleSide} color={new THREE.Color(color)}/>
       </mesh>
     );
   }

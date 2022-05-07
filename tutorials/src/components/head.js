@@ -1,5 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
+const defaultColor = "FF8D29";
 function Head(props) {
 
   const front = [];
@@ -17,7 +18,7 @@ function Head(props) {
     for (var j = 0; j < 8; j++) {
       front.push([i-3.5, j+8, 4])
       if(props.pixelDict[i-3.5 + "," + (j+8) + "," + 4] == undefined)
-        props.pixelDict[i-3.5 + "," + (j+8) + "," + 4] = "D3D3D3"
+        props.pixelDict[i-3.5 + "," + (j+8) + "," + 4] = defaultColor
       props.pngIndexDict[i-3.5 + "," + (j+8) + "," + 4] = (len * (line - j)) + skipLen + i;
     }
   }
@@ -28,7 +29,7 @@ function Head(props) {
     for (var j = 0; j > -8; j--) {
       left.push([-adjstmnt-3, i+8, j+3.5])
       if(props.pixelDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] == undefined)
-        props.pixelDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] = "D3D3D3"
+        props.pixelDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] = defaultColor
       props.pngIndexDict[-adjstmnt-3 + "," + (i+8) + "," + (j+3.5)] = (len * (line - i)) + skipLen + j;
     }
   }
@@ -39,7 +40,7 @@ function Head(props) {
     for (var j = 0; j > -8; j--) {
       right.push([3 + adjstmnt, (i+8), j+3.5])
       if(props.pixelDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] == undefined)
-        props.pixelDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] = "D3D3D3"
+        props.pixelDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] = defaultColor
       props.pngIndexDict[(3 + adjstmnt) + "," + (i+8) + "," + (j+3.5)] = (len * (line - i)) + skipLen - j;
     }
   }
@@ -50,7 +51,7 @@ function Head(props) {
     for (var j = 0; j < 8; j++) {
       back.push([i-3.5, (j+8), -4])
       if(props.pixelDict[i-3.5 + "," + (j+8) + "," + (-4)] == undefined)
-        props.pixelDict[i-3.5 + "," + (j+8) + "," + (-4)] = "D3D3D3"
+        props.pixelDict[i-3.5 + "," + (j+8) + "," + (-4)] = defaultColor
       props.pngIndexDict[i-3.5 + "," + (j+8) + "," + (-4)] = (len * (line - j)) + skipLen - i;
     }
   }
@@ -61,7 +62,7 @@ function Head(props) {
     for (var j = 0; j < 8; j++) {
       top.push([i-3.5, 15.5, -j+3.5])
       if(props.pixelDict[i-3.5 + ",15.5," + (-j+3.5)] == undefined)
-        props.pixelDict[i-3.5 + ",15.5," + (-j+3.5)] = "D3D3D3"
+        props.pixelDict[i-3.5 + ",15.5," + (-j+3.5)] = defaultColor
       props.pngIndexDict[i-3.5 + ",15.5," + (-j+3.5)] = (len * (line - j)) + skipLen + i;
     }
   }
@@ -72,7 +73,7 @@ function Head(props) {
     for (var j = 0; j < 8; j++) {
       bottom.push([i-3.5, 7.5, -j+3.5])
       if(props.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] == undefined)
-        props.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] = "D3D3D3"
+        props.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] = defaultColor
       props.pngIndexDict[i-3.5 + ",7.5," + (-j+3.5)] = (len * (line - j)) + skipLen - i;
     }
   }
