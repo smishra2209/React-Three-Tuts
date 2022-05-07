@@ -6,6 +6,8 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {DoubleSide} from 'three';
 import * as THREE from 'three' ;
 //import * as PNGlib from 'node-pnglib';
+import PixelPlane from "./components/pixelPlane";
+import Orbit from "./components/orbit";
 extend({OrbitControls});
 
 //UV MAPPING
@@ -18,54 +20,6 @@ const pixelDict = []
 const pngIndexDict = []
 var children = [];
 
-const Orbit = () => {
-  const {camera, gl} = useThree();
-  useFrame(state => { 
-    children = state.scene.children;
-  });
-  return (
-    <orbitControls args = {[camera, gl.domElement]}/>
-  )
-}
-
-const Box = props => {
-  const ref = useRef();
-  useFrame(state => {
-    ref.current.rotation.x += 0.01;
-    ref.current.rotation.y += 0.01;
-  })
-  return (
-    <mesh ref={ref} {...props}>
-          <boxBufferGeometry/>
-          <meshPhysicalMaterial color = 'blue'/>
-        </mesh>
-  );
-}
-
-const Floor = props => {
-  return (
-    <mesh {...props}>
-      <boxBufferGeometry args = {[20, 1, 10]}/>
-      <meshPhysicalMaterial />
-    </mesh>
-  )
-}
-
-const PixelPlane = props => {
-  const ref = useRef();
-  //const color = new THREE.Color( 0xffffff );
-  const color = new THREE.Color( props.color );
-  //color.setHex( Math.random() * 0xffffff );
-  useFrame(state => {    
-    ref.current.color = color;
-  })
-  return (
-    <mesh {...props}>
-      <boxGeometry args={props.args}/>
-      <meshPhysicalMaterial ref={ref} side={DoubleSide}/>
-    </mesh>
-  );
-}
 
 const pixelClick = e => {
   e.stopPropagation();
@@ -86,7 +40,42 @@ function hex2rgb(hex)
     return rgb;
 }
 
-function App() {
+export const exportPng = () => {
+  useFrame(state => { 
+    children = state.scene.children;
+  });
+  for(var i=0; i<children.length; i++){
+    if(children[i]["type"] == "Mesh" && children[i]["material"]["type"] == "MeshPhysicalMaterial"){
+      pixelDict[children[i].position.x+","+children[i].position.y+","+children[i].position.z] = children[i].material.color.getHexString();
+    }
+  } 
+  var canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  var context = canvas.getContext("2d");
+  var imageData=context.createImageData(64, 64);
+  var data=imageData.data;
+  for (var i=0; i<data.length; i+=4) {
+    data[i+3]=0; // alpha (transparency)
+  }
+  console.log(pixelDict);
+  Object.keys(pngIndexDict).forEach(element => {
+    var rgb = hex2rgb(pixelDict[element])
+    var actualIndex = pngIndexDict[element]*4
+    data[actualIndex + 0]= rgb[0]
+    data[actualIndex + 1]= rgb[1]
+    data[actualIndex + 2]= rgb[2]
+    data[actualIndex + 3]= 255
+
+  });
+    
+  context.putImageData(imageData, 0, 0); // at coords 0,0
+  var value=canvas.toDataURL("image/png");
+  var win = window.open();
+  win.document.write('<img src="'+value+'">');
+}
+
+const App = () => {
   
   const headFront = [];
   const headLeft = [];
@@ -517,61 +506,12 @@ function App() {
     }
   }
 
-  var exportPng = () => {
-    for(var i=0; i<children.length; i++){
-      if(children[i]["type"] == "Mesh" && children[i]["material"]["type"] == "MeshPhysicalMaterial"){
-        pixelDict[children[i].position.x+","+children[i].position.y+","+children[i].position.z] = children[i].material.color.getHexString();
-      }
-    } 
-    var canvas = document.createElement('canvas');
-    canvas.width = 64;
-    canvas.height = 64;
-    var context = canvas.getContext("2d");
-    var imageData=context.createImageData(64, 64);
-    var data=imageData.data;
-    for (var i=0; i<data.length; i+=4) {
-      data[i+3]=0; // alpha (transparency)
-    }
-    // for (var i=0; i<8; i++) {
-    //   for(var j=0; j<8; j++){
-    //     data[i*j]=hex2rgb("d67cd2")
-    //   }        
-    // }
-    Object.keys(pngIndexDict).forEach(element => {
-      var rgb = hex2rgb(pixelDict[element])
-      var actualIndex = pngIndexDict[element]*4
-      data[actualIndex + 0]= rgb[0]
-      data[actualIndex + 1]= rgb[1]
-      data[actualIndex + 2]= rgb[2]
-      data[actualIndex + 3]= 255
-      //console.log(pngIndexDict[element] +"="+ data[pngIndexDict[element] + 0]+","+data[pngIndexDict[element] + 1]+","+data[pngIndexDict[element] + 2])
-      //console.log(rgb)
-    });
-    //console.log(data)
-      
-    context.putImageData(imageData, 0, 0); // at coords 0,0
-    //context.drawImage(imageData, 0, 0, 0, 0, 64, 64);
-    var value=canvas.toDataURL("image/png");
-    var win = window.open();
-    //win.document.write('<iframe src="' + value  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-    
-
-    // let png = new PNGlib(64, 64);
-    
-    // for(var i=0; i<8; i++){
-    //   for(var j=0; j<8; j++){
-    //     png.setPixel(i, j, '#' + pixelDict[i][j][adjstmnt]);
-    //   }
-    // }
-    // console.log(png.getBase64());
-    //win.document.write('<img src="data:image/png;base64,'+png.getBase64()+'">');
-    win.document.write('<img src="'+value+'">');
-  }
+  
 
   
   return (
     <div style={{height: '100vh', width: '100vw'}}>
-      <button type='button' onClick={exportPng}>Export</button>
+      {/* <button type='button' onClick={exportPng}>Export</button> */}
       <Canvas camera = {{position: [10,10,10]}}>
         <axesHelper args = {[5]}/>
         {headFront.map(headPixel => (
