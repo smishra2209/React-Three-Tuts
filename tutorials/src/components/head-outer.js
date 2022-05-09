@@ -1,6 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
-const defaultColor = "000000";
+const defaultColor = "";
 function HeadOuter(props) {
   
   const front = [];
@@ -17,8 +17,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
       front.push([i-3.5, j+8.5, 4.5])
-      if(props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + 4.5] == undefined)
+      if(props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + 4.5] == undefined){
         props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + 4.5] = defaultColor
+        props.pixelUtil.opacityDict[i-3.5 + "," + (j+8.5) + "," + 4.5] = 0;
+      }
       props.pixelUtil.pngIndexDict[i-3.5 + "," + (j+8.5) + "," + 4.5] = (len * (line - j)) + skipLen + i;
     }
   }
@@ -28,8 +30,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j > -8; j--) {
       left.push([-adjstmnt-3.5, i+8.5, j+3.5])
-      if(props.pixelUtil.pixelDict[-adjstmnt-3.5 + "," + (i+8.5) + "," + (j+3.5)] == undefined)
+      if(props.pixelUtil.pixelDict[-adjstmnt-3.5 + "," + (i+8.5) + "," + (j+3.5)] == undefined){
         props.pixelUtil.pixelDict[-adjstmnt-3.5 + "," + (i+8.5) + "," + (j+3.5)] = defaultColor
+        props.pixelUtil.opacityDict[-adjstmnt-3.5 + "," + (i+8.5) + "," + (j+3.5)] = 0;
+      }
       props.pixelUtil.pngIndexDict[-adjstmnt-3.5 + "," + (i+8.5) + "," + (j+3.5)] = (len * (line - i)) + skipLen + j;
     }
   }
@@ -39,8 +43,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j > -8; j--) {
       right.push([3.5 + adjstmnt, (i+8.5), j+3.5])
-      if(props.pixelUtil.pixelDict[(3.5 + adjstmnt) + "," + (i+8.5) + "," + (j+3.5)] == undefined)
+      if(props.pixelUtil.pixelDict[(3.5 + adjstmnt) + "," + (i+8.5) + "," + (j+3.5)] == undefined){
         props.pixelUtil.pixelDict[(3.5 + adjstmnt) + "," + (i+8.5) + "," + (j+3.5)] = defaultColor
+        props.pixelUtil.opacityDict[(3.5 + adjstmnt) + "," + (i+8.5) + "," + (j+3.5)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(3.5 + adjstmnt) + "," + (i+8.5) + "," + (j+3.5)] = (len * (line - i)) + skipLen - j;
     }
   }
@@ -50,8 +56,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
       back.push([i-3.5, (j+8.5), -4.5])
-      if(props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + (-4.5)] == undefined)
+      if(props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + (-4.5)] == undefined){
         props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + (-4.5)] = defaultColor
+        props.pixelUtil.opacityDict[i-3.5 + "," + (j+8.5) + "," + (-4.5)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i-3.5 + "," + (j+8.5) + "," + (-4.5)] = (len * (line - j)) + skipLen - i;
     }
   }
@@ -61,8 +69,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
       top.push([i-3.5, 16.5, -j+3.5])
-      if(props.pixelUtil.pixelDict[i-3.5 + ",16.5," + (-j+3.5)] == undefined)
+      if(props.pixelUtil.pixelDict[i-3.5 + ",16.5," + (-j+3.5)] == undefined){
         props.pixelUtil.pixelDict[i-3.5 + ",16.5," + (-j+3.5)] = defaultColor
+        props.pixelUtil.opacityDict[i-3.5 + ",16.5," + (-j+3.5)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i-3.5 + ",16.5," + (-j+3.5)] = (len * (line - j)) + skipLen + i;
     }
   }
@@ -72,8 +82,10 @@ function HeadOuter(props) {
   for (var i = 0; i < 8; i++) {
     for (var j = 0; j < 8; j++) {
       bottom.push([i-3.5, 7.5, -j+3.5])
-      if(props.pixelUtil.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] == undefined)
+      if(props.pixelUtil.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] == undefined){
         props.pixelUtil.pixelDict[i-3.5 + ",7.5," + (-j+3.5)] = defaultColor
+        props.pixelUtil.opacityDict[i-3.5 + ",7.5," + (-j+3.5)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i-3.5 + ",7.5," + (-j+3.5)] = (len * (line - j)) + skipLen - i;
     }
   }

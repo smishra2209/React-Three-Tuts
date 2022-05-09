@@ -1,6 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
-const defaultColor = "343cca";
+const defaultColor = "";
 function LeftFootOuter(props) {
   const top = [];
   const front = [];
@@ -16,8 +16,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
       top.push([i - 4.5, -6.5, -j + adjstmnt])
-      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-6.5) + "," + (-j + adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-6.5) + "," + (-j + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-6.5) + "," + (-j + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[i - 4.5 + "," + (-6.5) + "," + (-j + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-6.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
@@ -28,8 +30,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       front.push([i - 4.5, -j - 7.5, adjstmnt])
-      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -40,8 +44,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       right.push([-0.5, -j - 7.5, -i + adjstmnt])
-      if (props.pixelUtil.pixelDict[(-0.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[(-0.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-0.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-0.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-0.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -52,8 +58,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       back.push([i - 4.5, -j - 7.5, -adjstmnt])
-      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -64,8 +72,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       left.push([-5.5, -j - 7.5, -i + adjstmnt])
-      if (props.pixelUtil.pixelDict[(-5.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[(-5.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-5.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-5.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-5.5) + "," + (-j - 7.5) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -76,8 +86,10 @@ function LeftFootOuter(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
       bottom.push([i - 4.5, -19.5, -j + adjstmnt])
-      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-19.5) + "," + (-j + adjstmnt)] == undefined)
+      if (props.pixelUtil.pixelDict[i - 4.5 + "," + (-19.5) + "," + (-j + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-19.5) + "," + (-j + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[i - 4.5 + "," + (-19.5) + "," + (-j + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-19.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }

@@ -10,7 +10,7 @@ const hex2rgb = (hex => {
   return rgb;
 });
 
-function ExportPng(pixelDict, pngIndexDict) {
+function ExportPng(pixelDict, pngIndexDict, opacityDict) {
   var canvas = document.createElement('canvas');
   canvas.width = 64;
   canvas.height = 64;
@@ -21,13 +21,18 @@ function ExportPng(pixelDict, pngIndexDict) {
     data[i + 3] = 0; // alpha (transparency)
   }
   Object.keys(pngIndexDict).forEach(element => {
-    var rgb = hex2rgb(pixelDict[element])
-    var actualIndex = pngIndexDict[element] * 4
-    data[actualIndex + 0] = rgb[0]
-    data[actualIndex + 1] = rgb[1]
-    data[actualIndex + 2] = rgb[2]
-    data[actualIndex + 3] = 255
-
+    console.log(pixelDict[element].length)
+    if(pixelDict[element].length>0){
+      var rgb = hex2rgb(pixelDict[element])
+      var actualIndex = pngIndexDict[element] * 4
+      console.log("Opacity "+opacityDict[element])
+      if(opacityDict[element]!=0){
+        data[actualIndex + 0] = rgb[0]
+        data[actualIndex + 1] = rgb[1]
+        data[actualIndex + 2] = rgb[2]
+        data[actualIndex + 3] = 255
+      }
+    }
   });
 
   context.putImageData(imageData, 0, 0); // at coords 0,0
@@ -49,7 +54,7 @@ function toBlob(base64, type) {
   return new Blob([arr.buffer], { type: type });
 }
 
-export function ImportPng(pixelDict, pngIndexDict) {
+export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
   console.log(testimage);
   fetch(testimage)
     .then(image => {
@@ -64,11 +69,14 @@ export function ImportPng(pixelDict, pngIndexDict) {
         var imageData = ctx.getImageData(0,0,64,64).data;
         Object.keys(pngIndexDict).forEach(element => {
           var rgb = []//hex2rgb(pixelDict[element])
-          var actualIndex = pngIndexDict[element] * 4
-          rgb[0] = imageData[actualIndex + 0]
-          rgb[1] = imageData[actualIndex + 1]
-          rgb[2] = imageData[actualIndex + 2]
-          pixelDict[element] = rgbToHex(rgb);
+          var actualIndex = pngIndexDict[element] * 4  
+          if(imageData[actualIndex + 3]!=0){        
+            rgb[0] = imageData[actualIndex + 0]
+            rgb[1] = imageData[actualIndex + 1]
+            rgb[2] = imageData[actualIndex + 2]
+            pixelDict[element] = rgbToHex(rgb); 
+            opacityDict[element] = 255; 
+          }      
         });
       };
       imgObj.src = image.url;

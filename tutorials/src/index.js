@@ -23,7 +23,8 @@ import {GUI} from 'dat.gui';
 const GROUP = 'Edit';
 const pixelDict = [];
 const pngIndexDict = [];
-const pixelUtil = new PixelUtil(pixelDict, pngIndexDict, 0x000000, true, true, true, true, true, true, true, true, true);
+const opacityDict = [];
+const pixelUtil = new PixelUtil(pixelDict, pngIndexDict, opacityDict, 0x000000, true, true, true, true, true, true, true, true, true);
 var headVisibility = null;
 var leftArmVisibility = null;
 var rightArmVisibility = null;
@@ -124,7 +125,7 @@ function Skin() {
     // setInnerBodyVisible(true);
     // setOuterBodyVisible(true);
     //model = setupSkin();
-    Promise.resolve(ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict)).then(()=>{
+    Promise.resolve(ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict)).then(()=>{
       console.log("Rendering model")
       //model = setupSkin();
       pixelUtil.load = false;
@@ -163,7 +164,7 @@ function App() {
   var mint = { mint:function()
     { 
       console.log("clicked")
-      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
+      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict); 
     }
   };
   gui.add(mint,'mint');

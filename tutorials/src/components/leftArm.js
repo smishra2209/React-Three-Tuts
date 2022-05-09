@@ -1,6 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
-const defaultColor = "ff0000";
+const defaultColor = "";
 function LeftArm(props) {
   const top = [];
   const front = [];
@@ -16,8 +16,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
       top.push([-i - 6, 6.5, -j + adjstmnt])
-      if(props.pixelUtil.pixelDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
@@ -28,8 +30,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       front.push([-i - 6, -j + 6, adjstmnt])
-      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -40,8 +44,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       right.push([-5.5, -j + 6, -i + adjstmnt])
-      if(props.pixelUtil.pixelDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -52,8 +58,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       back.push([-i - 6, -j + 6, -adjstmnt])
-      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
@@ -64,8 +72,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
       left.push([-9.5, -j + 6, -i + adjstmnt])
-      if(props.pixelUtil.pixelDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
@@ -76,8 +86,10 @@ function LeftArm(props) {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
       bottom.push([-i - 6, -5.5, -j + adjstmnt])
-      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] == undefined)
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] == undefined){
         props.pixelUtil.pixelDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] = defaultColor
+        props.pixelUtil.opacityDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] = 0;
+      }
       props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }

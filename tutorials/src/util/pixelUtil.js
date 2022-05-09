@@ -1,7 +1,8 @@
 class PixelUtil {
-    constructor(pixelDict, pngIndexDict, color, head, leftArm, rightArm, torso, leftFoot, rightFoot, innerBody, outerBody, load) {
+    constructor(pixelDict, pngIndexDict, opacityDict, color, head, leftArm, rightArm, torso, leftFoot, rightFoot, innerBody, outerBody, load) {
         this.pixelDict = pixelDict;
         this.pngIndexDict = pngIndexDict;
+        this.opacityDict = opacityDict;
         this.color = color;
         this.head = head;
         this.leftArm = leftArm;
