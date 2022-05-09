@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-three/drei": "^9.7.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
+    "dat.gui": "^0.7.9",
     "git": "^0.1.5",
     "node-libpng": "^0.2.20",
     "node-pnglib": "^1.5.5",

@@ -1,6 +1,6 @@
 import PixelPlane from "./pixelPlane";
 
-const defaultColor = "FF8D29";
+const defaultColor = "ff0000";
 function LeftArm(props) {
   const top = [];
   const front = [];
@@ -15,10 +15,10 @@ function LeftArm(props) {
   var adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
-      top.push([-i - 5.5, 6.5, -j + adjstmnt])
-      if(props.pixelDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] == undefined)
-        props.pixelDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] = defaultColor
-      props.pngIndexDict[(-i - 5.5) + "," + 6.5 + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      top.push([-i - 6, 6.5, -j + adjstmnt])
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-i - 6) + "," + 6.5 + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
 
@@ -27,10 +27,10 @@ function LeftArm(props) {
   adjstmnt = 2.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      front.push([-i - 5.5, -j + 6, adjstmnt])
-      if(props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] == undefined)
-        props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] = defaultColor
-      props.pngIndexDict[(-i - 5.5) + "," + (-j + 6) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
+      front.push([-i - 6, -j + 6, adjstmnt])
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-j + 6) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -39,10 +39,10 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      right.push([-5, -j + 6, -i + adjstmnt])
-      if(props.pixelDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
-        props.pixelDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
-      props.pngIndexDict[(-5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
+      right.push([-5.5, -j + 6, -i + adjstmnt])
+      if(props.pixelUtil.pixelDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-5.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
@@ -51,10 +51,10 @@ function LeftArm(props) {
   adjstmnt = 1.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      back.push([-i - 5.5, -j + 6, -adjstmnt])
-      if(props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] == undefined)
-        props.pixelDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] = defaultColor
-      props.pngIndexDict[(-i - 5.5) + "," + (-j + 6) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
+      back.push([-i - 6, -j + 6, -adjstmnt])
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-j + 6) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
@@ -63,10 +63,10 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
-      left.push([-9, -j + 6, -i + adjstmnt])
-      if(props.pixelDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
-        props.pixelDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
-      props.pngIndexDict[(-9) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
+      left.push([-9.5, -j + 6, -i + adjstmnt])
+      if(props.pixelUtil.pixelDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-9.5) + "," + (-j + 6) + "," + (-i + adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -75,32 +75,32 @@ function LeftArm(props) {
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
-      bottom.push([-i - 5.5, -5.5, -j + adjstmnt])
-      if(props.pixelDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] == undefined)
-        props.pixelDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] = defaultColor
-      props.pngIndexDict[(-i - 5.5) + "," + (-5.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      bottom.push([-i - 6, -5.5, -j + adjstmnt])
+      if(props.pixelUtil.pixelDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] == undefined)
+        props.pixelUtil.pixelDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] = defaultColor
+      props.pixelUtil.pngIndexDict[(-i - 6) + "," + (-5.5) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
     }
   }
 
   return (
     <>
       {top.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
       {front.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
       {right.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
       {back.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 1, 0.01]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
       {left.map(pixel => (
-        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[0.01, 1, 1]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
       {bottom.map(pixel => (
-        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} />
+        <PixelPlane position={pixel} args={[1, 0.01, 1]} color={props.pixelUtil.pixelDict[pixel[0]+","+pixel[1]+","+pixel[2]]} key={pixel} pixelUtil={props.pixelUtil} visible={props.pixelUtil.leftArm && props.pixelUtil.innerBody}/>
       ))}
     </>
   );

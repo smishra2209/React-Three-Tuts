@@ -1,8 +1,8 @@
 import React, { useState, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { Controls, useControl } from 'react-three-gui';
-import { useFrame } from 'react-three-fiber';
+import { Controls, useControl, withControls } from 'react-three-gui';
+import { Canvas, useFrame } from 'react-three-fiber';
 import Orbit from './components/orbit';
 import Head from './components/head';
 import Torso from './components/torso';
@@ -10,44 +10,55 @@ import LeftArm from './components/leftArm';
 import RightArm from './components/rightArm';
 import LeftFoot from './components/leftFoot';
 import RightFoot from './components/rightFoot';
-import ExportPng, { SaveModelPixels } from './util/skinUtil';
+import ExportPng, { ImportPng } from './util/skinUtil';
 import HeadOuter from './components/head-outer';
 import LeftArmOuter from './components/leftArm-outer';
 import TorsoOuter from './components/torso-outer';
 import RightArmOuter from './components/rightArm-outer';
 import LeftFootOuter from './components/leftFoot-outer';
 import RightFootOuter from './components/rightFoot-outer';
+import PixelUtil from './util/pixelUtil';
+import {GUI} from 'dat.gui';
 
 const GROUP = 'Edit';
 const pixelDict = [];
 const pngIndexDict = [];
+const pixelUtil = new PixelUtil(pixelDict, pngIndexDict, 0x000000, true, true, true, true, true, true, true, true, true);
+var headVisibility = null;
+var leftArmVisibility = null;
+var rightArmVisibility = null;
+var torsoVisibility = null;
+var leftFootisibility = null;
+var rightFootVisibility = null;
+var innerBodyVisibility = null;
+var outerBodyVisibility = null;
+var bodyVisibility = null;
+var guiGlobal = null;
+var impBtn = null;
 
-// const headRef = null;
-// const torsoRef = null;
-// const leftArmRef = null;
-// const rightArmRef = null;
-// const leftFootRef = null;
-// const rightFootRef = null;
-
-function setupSkin(headVisible, torsoVisible, leftArmVisible, rightArmVisible, leftFootVisible, rightFootVisible, innerBodyVisible, outerBodyVisible) {
+function setupSkin() {
+  console.log("Rendering....")
+  //console.log(pixelUtil.pixelDict)
   return (
     <>
-      {innerBodyVisible?<group name='innerbody'>
-        {headVisible ? <Head pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="head" /> : null}
-        {torsoVisible ? <Torso pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="torso" /> : null}
-        {leftArmVisible ? <LeftArm pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftArm" /> : null}
-        {rightArmVisible ? <RightArm pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightArm" /> : null}
-        {leftFootVisible ? <LeftFoot pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftFoot" /> : null}
-        {rightFootVisible ? <RightFoot pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightFoot" /> : null}
-      </group>: null}
-      {outerBodyVisible?<group name='outerbody'>
-        {headVisible ? <HeadOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="head" /> : null}
-        {torsoVisible ? <TorsoOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="torso" /> : null}
-        {leftArmVisible ? <LeftArmOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftArm" /> : null}
-        {rightArmVisible ? <RightArmOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightArm" /> : null}
-        {leftFootVisible ? <LeftFootOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="leftFoot" /> : null}
-        {rightFootVisible ? <RightFootOuter pixelDict={pixelDict} pngIndexDict={pngIndexDict} key="rightFoot" /> : null}
-      </group>: null}
+    <group name="body" visible={pixelUtil.load}>
+        <group name='innerbody' visible={pixelUtil.innerBody}>
+          <Head pixelUtil={pixelUtil} key="head"/>
+          <Torso pixelUtil={pixelUtil} key="torso" />
+          <LeftArm pixelUtil={pixelUtil} key="leftArm" />
+          <RightArm pixelUtil={pixelUtil} key="rightArm" />
+          <LeftFoot pixelUtil={pixelUtil} key="leftFoot" />
+          <RightFoot pixelUtil={pixelUtil} key="rightFoot" />
+        </group>
+        <group name='outerbody' visible={pixelUtil.outerBody}>
+          <HeadOuter pixelUtil={pixelUtil} key="head" />
+          <TorsoOuter pixelUtil={pixelUtil} key="torso" />
+          <LeftArmOuter pixelUtil={pixelUtil} key="leftArm" />
+          <RightArmOuter pixelUtil={pixelUtil} key="rightArm" />
+          <LeftFootOuter pixelUtil={pixelUtil} key="leftFoot" />
+          <RightFootOuter pixelUtil={pixelUtil} key="rightFoot" />
+        </group>
+      </group>
     </>
   );
 }
@@ -55,112 +66,137 @@ function setupSkin(headVisible, torsoVisible, leftArmVisible, rightArmVisible, l
 
 //set(s => !s)
 function Skin() {
-  const [show, set] = useState(false);
-  const [headVisible, setHeadVisible] = useState(true);
-  const [torsoVisible, setTorsoVisible] = useState(true);
-  const [leftArmVisible, setLeftArmVisible] = useState(true);
-  const [rightArmVisible, setRightArmVisible] = useState(true);
-  const [leftFootVisible, setLeftFootVisible] = useState(true);
-  const [rightFootVisible, setRightFootVisible] = useState(true);
-  const [innerBodyVisible, setInnerBodyVisible] = useState(true);
-  const [outerBodyVisible, setOuterBodyVisible] = useState(true);
-  const model = setupSkin(headVisible, torsoVisible, leftArmVisible, rightArmVisible, leftFootVisible, rightFootVisible, innerBodyVisible, outerBodyVisible);
-  var children = [];
-  useFrame(state => {
-    children = state.scene.children;
+  const [headVisible, setHeadVisible] = useState(pixelUtil.head);
+  const [torsoVisible, setTorsoVisible] = useState(pixelUtil.torso);
+  const [leftArmVisible, setLeftArmVisible] = useState(pixelUtil.leftArm);
+  const [rightArmVisible, setRightArmVisible] = useState(pixelUtil.rightArm);
+  const [leftFootVisible, setLeftFootVisible] = useState(pixelUtil.leftFoot);
+  const [rightFootVisible, setRightFootVisible] = useState(pixelUtil.rightFoot);
+  const [innerBodyVisible, setInnerBodyVisible] = useState(pixelUtil.innerBody);
+  const [outerBodyVisible, setOuterBodyVisible] = useState(pixelUtil.outerBody);
+  const [body, setBody] = useState(pixelUtil.body);
+  console.log(pixelUtil.pixelDict);
+  var model = setupSkin();
+  headVisibility.onChange(() =>{
+    setHeadVisible(pixelUtil.head);
   });
-  useControl('Head', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setHeadVisible(headVisible => !headVisible))
-    }
+  leftArmVisibility.onChange(() =>{
+    setLeftArmVisible(pixelUtil.leftArm);
   });
-  useControl('Torso', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setTorsoVisible(torsoVisible => !torsoVisible))
-    }
+  rightArmVisibility.onChange(() =>{
+    setRightArmVisible(pixelUtil.rightArm);
   });
-  useControl('Left Arm', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setLeftArmVisible(leftArmVisible => !leftArmVisible))
-    }
+  torsoVisibility.onChange(() =>{
+    setTorsoVisible(pixelUtil.torso);
   });
-  useControl('Right Arm', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setRightArmVisible(rightArmVisible => !rightArmVisible))
-    }
+  leftFootisibility.onChange(() =>{
+    setLeftFootVisible(pixelUtil.leftFoot);
   });
-  useControl('Left Foot', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setLeftFootVisible(leftFootVisible => !leftFootVisible))
-    }
+  rightFootVisibility.onChange(() =>{
+    setRightFootVisible(pixelUtil.rightFoot);
   });
-  useControl('Right Foot', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setRightFootVisible(rightFootVisible => !rightFootVisible))
-    }
+  innerBodyVisibility.onChange(() =>{
+    setInnerBodyVisible(pixelUtil.innerBody);
   });
-  useControl('Inner Body', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setInnerBodyVisible(innerBodyVisible => !innerBodyVisible))
-    }
+  outerBodyVisibility.onChange(() =>{
+    setOuterBodyVisible(pixelUtil.outerBody);
   });
-  useControl('Outer Body', {
-    type: 'button',
-    onClick: () => {
-      Promise.resolve(SaveModelPixels(children, pixelDict)).then(setOuterBodyVisible(outerBodyVisible => !outerBodyVisible))
-    }
+  bodyVisibility.onChange(() =>{
+    setBody(pixelUtil.load)
+  })
+  impBtn.onChange(() => {
+    // setHeadVisible(false);
+    // setLeftArmVisible(false);
+    // setRightArmVisible(false);
+    // setTorsoVisible(false);
+    // setLeftFootVisible(false);
+    // setRightFootVisible(false);
+    // setInnerBodyVisible(false);
+    // setOuterBodyVisible(false);
+    console.log("again")
+    //ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
+    // setHeadVisible(true);
+    // setLeftArmVisible(true);
+    // setRightArmVisible(true);
+    // setTorsoVisible(true);
+    // setLeftFootVisible(true);
+    // setRightFootVisible(true);
+    // setInnerBodyVisible(true);
+    // setOuterBodyVisible(true);
+    //model = setupSkin();
+    Promise.resolve(ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict)).then(()=>{
+      console.log("Rendering model")
+      //model = setupSkin();
+      pixelUtil.load = false;
+      setBody(pixelUtil.load);
+    })
   });
-
-  useControl('Mint', {
-    type: 'button',
-    onClick: () => {
-      setHeadVisible(true);
-      setTorsoVisible(true);
-      setLeftArmVisible(true);
-      setRightArmVisible(true);
-      setLeftFootVisible(true);
-      setRightFootVisible(true);
-      SaveModelPixels(children, pixelDict);
-      setTimeout(() => {
-        ExportPng(children, pixelDict, pngIndexDict);
-      }, 4000);
-
-    }
-  });
+  
   return (
     <>
-      {model}
-      {show}
+      {model}      
     </>
   );
 }
 
 function App() {
+  var params = {
+    color: pixelUtil.color
+  };
+  const gui = new GUI();
+  guiGlobal = gui;
+  var folder = gui.addFolder( 'Edit Skin' );
+  gui.addFolder(folder);
+  folder.addColor(params, "color").onChange(()=>{
+    pixelUtil.color = params.color;
+  });
+  headVisibility = folder.add(pixelUtil, "head", true);
+  leftArmVisibility = folder.add(pixelUtil, "leftArm", true)
+  rightArmVisibility = folder.add(pixelUtil, "rightArm", true)
+  torsoVisibility = folder.add(pixelUtil, "torso", true)
+  leftFootisibility = folder.add(pixelUtil, "leftFoot", true)
+  rightFootVisibility = folder.add(pixelUtil, "rightFoot", true)
+  innerBodyVisibility = folder.add(pixelUtil, "innerBody", true)
+  outerBodyVisibility = folder.add(pixelUtil, "outerBody", true)
+  bodyVisibility = folder.add(pixelUtil, "load", true)
+  folder.open();
+  var mint = { mint:function()
+    { 
+      console.log("clicked")
+      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
+    }
+  };
+  gui.add(mint,'mint');
+  var imp = { import:function()
+    { 
+      console.log("clicked")
+      //ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
+    }
+  };
+  impBtn = gui.add(imp,'import');
+  
   return (
-    <Controls.Provider >
-      <Controls.Canvas camera={{ position: [10, 10, 25] }} style={{ height: '100vh', width: '100vw' }}>
+    <>
+      {/* <Controls.Provider > */}
+      <Canvas camera={{ position: [10, 10, 25] }} style={{ height: '100vh', width: '100vw' }}>
         <ambientLight />
         <pointLight position={[10, 0, 10]} intensity={1} />
-        <Suspense><Skin /></Suspense>
+        <Skin />
         <Orbit />
-      </Controls.Canvas>
-      <Controls />
-    </Controls.Provider>
+      </Canvas>
+
+      {/* <Controls /> */}
+      {/* </Controls.Provider> */}
+
+    </>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

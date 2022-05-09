@@ -1,3 +1,5 @@
+import testimage from '../testimage.png';
+
 const hex2rgb = (hex => {
   var aRgbHex = hex.match(/.{1,2}/g);
   var rgb = [
@@ -8,23 +10,7 @@ const hex2rgb = (hex => {
   return rgb;
 });
 
-function ExportPng(children, pixelDict, pngIndexDict) {
-  if (children != null && children[2] != null && children[2].children != null) {
-    const innerbody = children[2].children;
-    for (var i = 0; i < innerbody.length; i++) {
-      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhongMaterial") {
-        pixelDict[innerbody[i].position.x + "," + innerbody[i].position.y + "," + innerbody[i].position.z] = innerbody[i].material.color.getHexString();
-      }
-    }
-  }
-  if (children != null && children[3] != null && children[3].children != null) {
-    const outerbody = children[3].children;
-    for (var i = 0; i < outerbody.length; i++) {
-      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhongMaterial") {
-        pixelDict[outerbody[i].position.x + "," + outerbody[i].position.y + "," + outerbody[i].position.z] = outerbody[i].material.color.getHexString();
-      }
-    }
-  }
+function ExportPng(pixelDict, pngIndexDict) {
   var canvas = document.createElement('canvas');
   canvas.width = 64;
   canvas.height = 64;
@@ -51,21 +37,63 @@ function ExportPng(children, pixelDict, pngIndexDict) {
   win.document.write('<img src="' + value + '">');
 };
 
-export function SaveModelPixels(children, pixelDict) {
-  console.log(children)
-  if (children != null && children[2] != null && children[2].children != null) {
-    const innerbody = children[2].children;
-    for (var i = 0; i < innerbody.length; i++) {
-      if (innerbody[i]["type"] == "Mesh" && innerbody[i]["material"]["type"] == "MeshPhongMaterial") {
-        pixelDict[innerbody[i].position.x + "," + innerbody[i].position.y + "," + innerbody[i].position.z] = innerbody[i].material.color.getHexString();
-      }
-    }
+function toBlob(base64, type) {
+  var rawData = base64.substring(base64.indexOf("base64,") + 7);
+  var data = atob(rawData);
+  var arr = new Uint8Array(data.length);
+
+  for (var i = 0; i < data.length; ++i) {
+    arr[i] = data.charCodeAt(i);
   }
-  if (children != null && children[3] != null && children[3].children != null) {
-    const outerbody = children[3].children;
-    for (var i = 0; i < outerbody.length; i++) {
-      if (outerbody[i]["type"] == "Mesh" && outerbody[i]["material"]["type"] == "MeshPhongMaterial") {
-        pixelDict[outerbody[i].position.x + "," + outerbody[i].position.y + "," + outerbody[i].position.z] = outerbody[i].material.color.getHexString();
+
+  return new Blob([arr.buffer], { type: type });
+}
+
+export function ImportPng(pixelDict, pngIndexDict) {
+  console.log(testimage);
+  fetch(testimage)
+    .then(image => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      var imgObj = new Image()// document.createElement('img');
+      imgObj.crossOrigin = "anonymous";
+      imgObj.onload = function() {
+        ctx.drawImage(imgObj, 0, 0);
+        var imageData = ctx.getImageData(0,0,64,64).data;
+        Object.keys(pngIndexDict).forEach(element => {
+          var rgb = []//hex2rgb(pixelDict[element])
+          var actualIndex = pngIndexDict[element] * 4
+          rgb[0] = imageData[actualIndex + 0]
+          rgb[1] = imageData[actualIndex + 1]
+          rgb[2] = imageData[actualIndex + 2]
+          pixelDict[element] = rgbToHex(rgb);
+        });
+      };
+      imgObj.src = image.url;
+    })
+    console.log("Finished")
+    return true;
+}
+
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(rgb) {
+  return componentToHex(rgb[0]) + componentToHex(rgb[1]) + componentToHex(rgb[2]);
+}
+
+export function SaveModelPixels(children, pixelDict) {
+  if (children != null) {
+    for (var k = 0; k < children.length; k++) {
+      const body = children[k].children;
+      for (var i = 0; i < body.length; i++) {
+        if (body[i]["type"] == "Mesh" && body[i]["material"]["type"] == "MeshPhysicalMaterial") {
+          pixelDict[body[i].position.x + "," + body[i].position.y + "," + body[i].position.z] = body[i].material.color.getHexString();
+        }
       }
     }
   }
