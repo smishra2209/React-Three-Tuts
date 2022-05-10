@@ -1,8 +1,7 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { Controls, useControl, withControls } from 'react-three-gui';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas} from 'react-three-fiber';
 import Orbit from './components/orbit';
 import Head from './components/head';
 import Torso from './components/torso';
@@ -18,13 +17,12 @@ import RightArmOuter from './components/rightArm-outer';
 import LeftFootOuter from './components/leftFoot-outer';
 import RightFootOuter from './components/rightFoot-outer';
 import PixelUtil from './util/pixelUtil';
-import {GUI} from 'dat.gui';
+import { GUI } from 'dat.gui';
 
-const GROUP = 'Edit';
 const pixelDict = [];
 const pngIndexDict = [];
 const opacityDict = [];
-const pixelUtil = new PixelUtil(pixelDict, pngIndexDict, opacityDict, 0x000000, true, true, true, true, true, true, true, true, true);
+const pixelUtil = new PixelUtil(pixelDict, pngIndexDict, opacityDict, 0x000000, true, true, true, true, true, true, true, true, true, false);
 var headVisibility = null;
 var leftArmVisibility = null;
 var rightArmVisibility = null;
@@ -36,15 +34,14 @@ var outerBodyVisibility = null;
 var bodyVisibility = null;
 var guiGlobal = null;
 var impBtn = null;
+var folder = null;
 
 function setupSkin() {
-  console.log("Rendering....")
-  //console.log(pixelUtil.pixelDict)
   return (
     <>
-    <group name="body" visible={pixelUtil.load}>
+      <group name="body" visible={pixelUtil.load}>
         <group name='innerbody' visible={pixelUtil.innerBody}>
-          <Head pixelUtil={pixelUtil} key="head"/>
+          <Head pixelUtil={pixelUtil} key="head" />
           <Torso pixelUtil={pixelUtil} key="torso" />
           <LeftArm pixelUtil={pixelUtil} key="leftArm" />
           <RightArm pixelUtil={pixelUtil} key="rightArm" />
@@ -75,67 +72,50 @@ function Skin() {
   const [rightFootVisible, setRightFootVisible] = useState(pixelUtil.rightFoot);
   const [innerBodyVisible, setInnerBodyVisible] = useState(pixelUtil.innerBody);
   const [outerBodyVisible, setOuterBodyVisible] = useState(pixelUtil.outerBody);
-  const [body, setBody] = useState(pixelUtil.body);
-  console.log(pixelUtil.pixelDict);
+  const [body, setBody] = useState(true);
   var model = setupSkin();
-  headVisibility.onChange(() =>{
+  headVisibility.onChange(() => {
     setHeadVisible(pixelUtil.head);
   });
-  leftArmVisibility.onChange(() =>{
+  leftArmVisibility.onChange(() => {
     setLeftArmVisible(pixelUtil.leftArm);
   });
-  rightArmVisibility.onChange(() =>{
+  rightArmVisibility.onChange(() => {
     setRightArmVisible(pixelUtil.rightArm);
   });
-  torsoVisibility.onChange(() =>{
+  torsoVisibility.onChange(() => {
     setTorsoVisible(pixelUtil.torso);
   });
-  leftFootisibility.onChange(() =>{
+  leftFootisibility.onChange(() => {
     setLeftFootVisible(pixelUtil.leftFoot);
   });
-  rightFootVisibility.onChange(() =>{
+  rightFootVisibility.onChange(() => {
     setRightFootVisible(pixelUtil.rightFoot);
   });
-  innerBodyVisibility.onChange(() =>{
+  innerBodyVisibility.onChange(() => {
     setInnerBodyVisible(pixelUtil.innerBody);
   });
-  outerBodyVisibility.onChange(() =>{
+  outerBodyVisibility.onChange(() => {
     setOuterBodyVisible(pixelUtil.outerBody);
   });
-  bodyVisibility.onChange(() =>{
-    setBody(pixelUtil.load)
-  })
   impBtn.onChange(() => {
-    // setHeadVisible(false);
-    // setLeftArmVisible(false);
-    // setRightArmVisible(false);
-    // setTorsoVisible(false);
-    // setLeftFootVisible(false);
-    // setRightFootVisible(false);
-    // setInnerBodyVisible(false);
-    // setOuterBodyVisible(false);
-    console.log("again")
-    //ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
-    // setHeadVisible(true);
-    // setLeftArmVisible(true);
-    // setRightArmVisible(true);
-    // setTorsoVisible(true);
-    // setLeftFootVisible(true);
-    // setRightFootVisible(true);
-    // setInnerBodyVisible(true);
-    // setOuterBodyVisible(true);
-    //model = setupSkin();
-    Promise.resolve(ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict)).then(()=>{
-      console.log("Rendering model")
-      //model = setupSkin();
+    Promise.resolve(ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict)).then(() => {
       pixelUtil.load = false;
-      setBody(pixelUtil.load);
+      setBody(pixelUtil.load)
+      var Load = {
+        Load: function () {
+          pixelUtil.load = true;
+          setBody(pixelUtil.load)
+          folder.remove(bodyVisibility)
+        }
+      };
+      bodyVisibility = folder.add(Load, "Load")
     })
   });
-  
+
   return (
     <>
-      {model}      
+      {model}
     </>
   );
 }
@@ -146,11 +126,23 @@ function App() {
   };
   const gui = new GUI();
   guiGlobal = gui;
-  var folder = gui.addFolder( 'Edit Skin' );
+  folder = gui.addFolder('Edit Skin');
   gui.addFolder(folder);
-  folder.addColor(params, "color").onChange(()=>{
+  var color = folder.addColor(params, "color").onChange(() => {
     pixelUtil.color = params.color;
   });
+  var erase = {
+    erase: function () {
+      pixelUtil.clearColor();
+    }
+  };
+  var colorPicker = {
+    colorPicker: function () {
+      pixelUtil.activatePicker(color);
+    }
+  };
+  folder.add(erase, 'erase');
+  folder.add(colorPicker, 'colorPicker');
   headVisibility = folder.add(pixelUtil, "head", true);
   leftArmVisibility = folder.add(pixelUtil, "leftArm", true)
   rightArmVisibility = folder.add(pixelUtil, "rightArm", true)
@@ -159,36 +151,28 @@ function App() {
   rightFootVisibility = folder.add(pixelUtil, "rightFoot", true)
   innerBodyVisibility = folder.add(pixelUtil, "innerBody", true)
   outerBodyVisibility = folder.add(pixelUtil, "outerBody", true)
-  bodyVisibility = folder.add(pixelUtil, "load", true)
   folder.open();
-  var mint = { mint:function()
-    { 
-      console.log("clicked")
-      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict); 
+  var mint = {
+    mint: function () {
+      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict);
     }
   };
-  gui.add(mint,'mint');
-  var imp = { import:function()
-    { 
-      console.log("clicked")
-      //ImportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict); 
+  gui.add(mint, 'mint');
+  var imp = {
+    import: function () {
+
     }
   };
-  impBtn = gui.add(imp,'import');
-  
+  impBtn = gui.add(imp, 'import');
+
   return (
     <>
-      {/* <Controls.Provider > */}
       <Canvas camera={{ position: [10, 10, 25] }} style={{ height: '100vh', width: '100vw' }}>
         <ambientLight />
         <pointLight position={[10, 0, 10]} intensity={1} />
         <Skin />
         <Orbit />
       </Canvas>
-
-      {/* <Controls /> */}
-      {/* </Controls.Provider> */}
-
     </>
   );
 }
@@ -196,7 +180,7 @@ function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <App />
+  <App />
   // </React.StrictMode>
 );
 

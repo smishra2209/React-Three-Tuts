@@ -8,14 +8,22 @@ var pixelUtil = null;
 
 const pixelClick = e => {
   if (e.object.visible) {
-    e.object.material.color.setHex(pixelUtil.color);
-    e.object.material.transmission = 0;
-    e.object.material.opacity = 1;
-    pixelUtil.pixelDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = e.object.material.color.getHexString()
-    pixelUtil.opacityDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = 255;
+    if(pixelUtil.colorPicker){
+      pixelUtil.setColor(parseInt("0x" + e.object.material.color.getHexString(), 16))
+      pixelUtil.colorPicker = false;
+    } else {
+      if(pixelUtil.color=="" && pixelUtil.color!="0"){
+        e.object.material.color.setHex("FFFFFF");
+        e.object.material.opacity = 0;
+      } else {
+        e.object.material.color.setHex(pixelUtil.color);
+        e.object.material.opacity = 1;  
+      }
+      pixelUtil.pixelDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = e.object.material.color.getHexString()
+      pixelUtil.opacityDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = 255;
+    }
     e.stopPropagation();
   }
-
 }
 
 const PixelPlane = props => {
@@ -23,19 +31,13 @@ const PixelPlane = props => {
   var opacity = 1;
   var color = null;
   if(props.color==""){
-    color = "0xFFFFFF"
+    color = parseInt("0xFFFFFF", 16)
     if(props.pixelUtil.opacityDict[props.position[0] + "," + props.position[1] + "," + props.position[2]] == 0){
       opacity = 0;
     }
   } else {
     color = parseInt("0x" + props.color, 16);
   }
-  
-  console.log(color)
-  // useFrame(state => {    
-  //   ref.current.color.setHex(color);
-  // })
-  //const scale = props.outer?[2,2,2]:[1,1,1]
   const scale = [1, 1, 1]
   pixelUtil = props.pixelUtil;
   return (

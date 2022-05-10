@@ -21,11 +21,9 @@ function ExportPng(pixelDict, pngIndexDict, opacityDict) {
     data[i + 3] = 0; // alpha (transparency)
   }
   Object.keys(pngIndexDict).forEach(element => {
-    console.log(pixelDict[element].length)
     if(pixelDict[element].length>0){
       var rgb = hex2rgb(pixelDict[element])
       var actualIndex = pngIndexDict[element] * 4
-      console.log("Opacity "+opacityDict[element])
       if(opacityDict[element]!=0){
         data[actualIndex + 0] = rgb[0]
         data[actualIndex + 1] = rgb[1]
@@ -38,7 +36,6 @@ function ExportPng(pixelDict, pngIndexDict, opacityDict) {
   context.putImageData(imageData, 0, 0); // at coords 0,0
   var value = canvas.toDataURL("image/png");
   var win = window.open();
-  console.log(value);
   win.document.write('<img src="' + value + '">');
 };
 
@@ -55,7 +52,6 @@ function toBlob(base64, type) {
 }
 
 export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
-  console.log(testimage);
   fetch(testimage)
     .then(image => {
       const canvas = document.createElement('canvas');
@@ -81,7 +77,6 @@ export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
       };
       imgObj.src = image.url;
     })
-    console.log("Finished")
     return true;
 }
 
