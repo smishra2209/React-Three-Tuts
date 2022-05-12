@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { Canvas} from 'react-three-fiber';
+import { Canvas, useLoader} from 'react-three-fiber';
 import Orbit from './components/orbit';
 import Head from './components/head';
 import Torso from './components/torso';
@@ -18,6 +18,9 @@ import LeftFootOuter from './components/leftFoot-outer';
 import RightFootOuter from './components/rightFoot-outer';
 import PixelUtil from './util/pixelUtil';
 import { GUI } from 'dat.gui';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+import Model from './Model';
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 
 const pixelDict = [];
 const pngIndexDict = [];
@@ -32,9 +35,11 @@ var rightFootVisibility = null;
 var innerBodyVisibility = null;
 var outerBodyVisibility = null;
 var bodyVisibility = null;
+var previewVisibility = null;
 var guiGlobal = null;
 var impBtn = null;
 var folder = null;
+var pngValues = null;
 
 function setupSkin() {
   return (
@@ -121,6 +126,7 @@ function Skin() {
 }
 
 function App() {
+  const [editMode, setEditMode] = useState(true);
   var params = {
     color: pixelUtil.color
   };
@@ -154,7 +160,9 @@ function App() {
   folder.open();
   var mint = {
     mint: function () {
-      ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict);
+      var value = ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict);
+      var win = window.open();
+      win.document.write('<img src="' + value + '">');
     }
   };
   gui.add(mint, 'mint');
@@ -164,15 +172,36 @@ function App() {
     }
   };
   impBtn = gui.add(imp, 'import');
-
+  var preview = {
+    preview: function () {
+      pngValues = ExportPng(pixelUtil.pixelDict, pixelUtil.pngIndexDict, pixelUtil.opacityDict);
+      console.log(pngValues)
+      setEditMode(false)      
+    }
+  };
+  var previewBtn = gui.add(preview, 'preview');
+  var edit = {
+    edit: function () {
+      setEditMode(true)
+    }
+  };
+  var editBtn = gui.add(edit, 'edit');
+  const gltf = useLoader(GLTFLoader, '/steve.gltf');
   return (
     <>
-      <Canvas camera={{ position: [10, 10, 25] }} style={{ height: '100vh', width: '100vw' }}>
+    <Canvas camera={{ position: [10, 10, 25] }} style={{ height: '80vh', width: '100vw' }}>
         <ambientLight />
         <pointLight position={[10, 0, 10]} intensity={1} />
-        <Skin />
+        <Suspense fallback={null}>
+        {editMode?<Skin />:null}
+        {editMode?null:<Model values={pngValues}/>}
+        {/* <Model /> */}
+        </Suspense>
         <Orbit />
-      </Canvas>
+    </Canvas>
+    <div style={{'height': '100', 'width': '100vw', 'background':'black'}}>
+
+    </div>
     </>
   );
 }
@@ -180,7 +209,12 @@ function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <App />
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/render" element={<Model values={pngValues} />} />
+    </Routes>
+  </Router>
   // </React.StrictMode>
 );
 
