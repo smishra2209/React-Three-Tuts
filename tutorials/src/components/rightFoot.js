@@ -11,7 +11,7 @@ function RightFoot(props) {
 
   var len = 64;
   var line = 51;
-  var skipLen = 23;
+  var skipLen = 20;
   var adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -20,12 +20,12 @@ function RightFoot(props) {
         props.pixelUtil.pixelDict[(i + 1.5) + "," + (-7) + "," + (-j + adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[(i + 1.5) + "," + (-7) + "," + (-j + adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-7) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-7) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen + i;
     }
   }
 
   line = 52;
-  skipLen = 23;
+  skipLen = 20;
   adjstmnt = 2.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
@@ -34,7 +34,7 @@ function RightFoot(props) {
         props.pixelUtil.pixelDict[(i + 1.5) + "," + (-j - 7.5) + "," + (adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[(i + 1.5) + "," + (-j - 7.5) + "," + (adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-j - 7.5) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-j - 7.5) + "," + (adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
@@ -53,7 +53,7 @@ function RightFoot(props) {
   }
 
   line = 52;
-  skipLen = 28;
+  skipLen = 31;
   adjstmnt = 1.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
@@ -62,7 +62,7 @@ function RightFoot(props) {
         props.pixelUtil.pixelDict[(i + 1.5) + "," + (-j - 7.5) + "," + (-adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[(i + 1.5) + "," + (-j - 7.5) + "," + (-adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-j - 7.5) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
+      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-j - 7.5) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -81,7 +81,7 @@ function RightFoot(props) {
   }
 
   line = 51;
-  skipLen = 27;
+  skipLen = 24;
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -90,7 +90,7 @@ function RightFoot(props) {
         props.pixelUtil.pixelDict[(i + 1.5) + "," + (-19) + "," + (-j + adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[(i + 1.5) + "," + (-19) + "," + (-j + adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-19) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[(i + 1.5) + "," + (-19) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen + i;
     }
   }
 

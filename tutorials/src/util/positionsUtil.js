@@ -523,37 +523,37 @@ function init_right_arm(){
 function init_right_arm_outer(){
     for(var i=0; i<12; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+52)*64)+j+36;
+            var index = ((i+52)*64)+j+52;
             right_arm_front_outer[(i*4)+j] = index;
         }
     }
     for(var i=0; i<12; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+52)*64)+j+32;
+            var index = ((i+52)*64)+j+48;
             right_arm_left_outer[(i*4)+j] = index;
         }
     }
     for(var i=0; i<12; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+52)*64)+j+40;
+            var index = ((i+52)*64)+j+56;
             right_arm_right_outer[(i*4)+j] = index;
         }
     }
     for(var i=0; i<12; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+52)*64)+j+44;
+            var index = ((i+52)*64)+j+60;
             right_arm_back_outer[(i*4)+j] = index;
         }
     }
     for(var i=0; i<4; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+48)*64)+j+36;
+            var index = ((i+48)*64)+j+52;
             right_arm_top_outer[(i*4)+j] = index;
         }
     }
     for(var i=0; i<4; i++){
         for(var j=0; j<4; j++){
-            var index = ((i+48)*64)+j+40;
+            var index = ((i+48)*64)+j+56;
             right_arm_bottom_outer[(i*4)+j] = index;
         }
     }

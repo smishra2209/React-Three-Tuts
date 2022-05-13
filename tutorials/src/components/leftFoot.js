@@ -11,7 +11,7 @@ function LeftFoot(props) {
 
   var len = 64;
   var line = 19;
-  var skipLen = 7;
+  var skipLen = 4;
   var adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -20,12 +20,12 @@ function LeftFoot(props) {
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-7) + "," + (-j + adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[i - 4.5 + "," + (-7) + "," + (-j + adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-7) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-7) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen + i;
     }
   }
 
   line = 20;
-  skipLen = 7;
+  skipLen = 4;
   adjstmnt = 2.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
@@ -34,7 +34,7 @@ function LeftFoot(props) {
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = (len * (line + j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (adjstmnt)] = (len * (line + j)) + skipLen + i;
     }
   }
 
@@ -53,7 +53,7 @@ function LeftFoot(props) {
   }
 
   line = 20;
-  skipLen = 12;
+  skipLen = 15;
   adjstmnt = 1.5;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 12; j++) {
@@ -62,7 +62,7 @@ function LeftFoot(props) {
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen + i;
+      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-j - 7.5) + "," + (-adjstmnt)] = (len * (line + j)) + skipLen - i;
     }
   }
 
@@ -81,7 +81,7 @@ function LeftFoot(props) {
   }
 
   line = 19;
-  skipLen = 11;
+  skipLen = 8;
   adjstmnt = 2;
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
@@ -90,7 +90,7 @@ function LeftFoot(props) {
         props.pixelUtil.pixelDict[i - 4.5 + "," + (-19) + "," + (-j + adjstmnt)] = defaultColor
         props.pixelUtil.opacityDict[i - 4.5 + "," + (-19) + "," + (-j + adjstmnt)] = 0;
       }
-      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-19) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen - i;
+      props.pixelUtil.pngIndexDict[i - 4.5 + "," + (-19) + "," + (-j + adjstmnt)] = (len * (line - j)) + skipLen + i;
     }
   }
 

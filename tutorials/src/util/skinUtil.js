@@ -123,63 +123,6 @@ function getPngValue(pixelDict, pngIndexDict, opacityDict, width, height, inputA
   return value;
 }
 
-function ExportPng1(pixelDict, pngIndexDict, opacityDict) {
-  var canvas = document.createElement('canvas');
-  canvas.width = 128;
-  canvas.height = 128;
-  var context = canvas.getContext("2d");
-  var imageData = context.createImageData(128, 128);
-  var data = imageData.data;
-  for (var i = 0; i < data.length; i += 4) {
-    data[i + 3] = 0; // alpha (transparency)
-  }
-
-  var actualIndexArr = []
-  var n = 0;
-  for (var i = 0; i < 127; i += 2) {
-    for (var j = 0; j < 127; j += 2) {
-      actualIndexArr[n] = [];
-      actualIndexArr[n].push((i * 128) + j);
-      actualIndexArr[n].push((i * 128) + j + 1);
-      actualIndexArr[n].push(((i + 1) * 128) + j);
-      actualIndexArr[n].push(((i + 1) * 128) + j + 1);
-      n++;
-    }
-  }
-  console.log(actualIndexArr);
-  Object.keys(pngIndexDict).forEach(element => {
-    if (pixelDict[element].length > 0) {
-      var rgb = hex2rgb(pixelDict[element])
-      if (opacityDict[element] != 0) {
-        actualIndexArr[pngIndexDict[element]].forEach(element => {
-          var actualIndex = element * 4
-          data[actualIndex + 0] = rgb[0]
-          data[actualIndex + 1] = rgb[1]
-          data[actualIndex + 2] = rgb[2]
-          data[actualIndex + 3] = 255
-        })
-      }
-    }
-  });
-
-  context.putImageData(imageData, 0, 0); // at coords 0,0
-  var value = canvas.toDataURL("image/png");
-  return value;
-};
-
-
-function toBlob(base64, type) {
-  var rawData = base64.substring(base64.indexOf("base64,") + 7);
-  var data = atob(rawData);
-  var arr = new Uint8Array(data.length);
-
-  for (var i = 0; i < data.length; ++i) {
-    arr[i] = data.charCodeAt(i);
-  }
-
-  return new Blob([arr.buffer], { type: type });
-}
-
 export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
   fetch(testimage)
     .then(image => {
