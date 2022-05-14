@@ -20,7 +20,7 @@ function Head(props) {
       if(props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + 4] == undefined){
         props.pixelUtil.pixelDict[i-3.5 + "," + (j+8.5) + "," + 4] = defaultColor
         props.pixelUtil.opacityDict[i-3.5 + "," + (j+8.5) + "," + 4] = 0;
-      }
+      } 
       props.pixelUtil.pngIndexDict[i-3.5 + "," + (j+8.5) + "," + 4] = (len * (line - j)) + skipLen + i;
     }
   }

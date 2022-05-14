@@ -1,10 +1,14 @@
-import React, { useRef } from 'react'
-import { useFrame } from 'react-three-fiber';
+import React, { useRef, Suspense } from 'react'
+import { useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three'
+import { GUI } from 'dat.gui';
+import { useTexture } from '@react-three/drei';
+import bg from './assets/minecraftbg360.png'
 
 export default function Model(props) {
     const group = useRef()
-
+    const { gl } = useThree();
+    
     const headMaterials = [
         new THREE.MeshPhongMaterial({ map: getTexture(props.values['head_right']) }), //right side
         new THREE.MeshPhongMaterial({ map: getTexture(props.values['head_left']) }), //left side
@@ -101,6 +105,8 @@ export default function Model(props) {
         new THREE.MeshPhongMaterial({ map: getTexture(props.values['right_leg_front_outer']), transparent: true }), //front side
         new THREE.MeshPhongMaterial({ map: getTexture(props.values['right_leg_back_outer']), transparent: true }), //back side
     ];
+
+    //const floor = new THREE.MeshPhongMaterial({ map: getTexture(process.env.PUBLIC_URL + '/grass.jpg', true), transparent: true });
     const head = useRef();
     const torso = useRef();
     const leftArm = useRef();
@@ -141,76 +147,92 @@ export default function Model(props) {
             }
         }
     })
+
+    
+
+    const texture = useTexture(bg);
+    texture.encoding = THREE.sRGBEncoding;
+    texture.magFilter = THREE.NearestFilter;
+    const formatted = new THREE.WebGLCubeRenderTarget(texture.image.height).fromEquirectangularTexture(gl, texture)
     return (
         <>
-            <group ref={group} {...props} dispose={null}>
-                <group ref={head}>
-                    <mesh scale={[8, 8, 8]} material={headMaterials} position={[0, 10, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[8.3, 8.3, 8.3]} material={headMaterials_outer} position={[0, 10, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
+            <Suspense fallback={null}>
+                <primitive attach="background" object={formatted.texture} />
+            </Suspense>
+            <Suspense fallback={null}>
+                <group ref={group} {...props} dispose={null}>
+                    <group ref={head}>
+                        <mesh scale={[8, 8, 8]} material={headMaterials} position={[0, 10, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[8.3, 8.3, 8.3]} material={headMaterials_outer} position={[0, 10, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
+
+                    <group ref={torso}>
+                        <mesh scale={[8, 12, 4]} material={torsoMaterials} position={[0, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[8.3, 12.3, 4.3]} material={torsoMaterials_outer} position={[0, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
+
+                    <group ref={leftArm}>
+                        <mesh scale={[4, 12, 4]} material={leftArmMaterials} position={[-6, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[4.3, 12.3, 4.3]} material={leftArmMaterials_outer} position={[-6, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
+
+                    <group ref={rightArm}>
+                        <mesh scale={[4, 12, 4]} material={rightArmMaterials} position={[6, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[4.3, 12.3, 4.3]} material={rightArmMaterials_outer} position={[6, 0, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
+
+                    <group ref={leftLeg}>
+                        <mesh scale={[4, 12, 4]} material={leftLegMaterials} position={[-2, -12, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[4.3, 12.3, 4.3]} material={leftLegMaterials_outer} position={[-2, -12, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
+
+                    <group ref={rightLeg}>
+                        <mesh scale={[4, 12, 4]} material={rightLegMaterials} position={[2, -12, 0]}>
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                        <mesh scale={[4.3, 12.3, 4.3]} material={rightLegMaterials_outer} position={[2, -12, 0]} >
+                            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+                        </mesh>
+                    </group>
                 </group>
-
-                <group ref={torso}>
-                    <mesh scale={[8, 12, 4]} material={torsoMaterials} position={[0, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[8.3, 12.3, 4.3]} material={torsoMaterials_outer} position={[0, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                </group>
-
-                <group ref={leftArm}>
-                    <mesh scale={[4, 12, 4]} material={leftArmMaterials} position={[-6, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[4.3, 12.3, 4.3]} material={leftArmMaterials_outer} position={[-6, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                </group>
-
-                <group ref={rightArm}>
-                    <mesh scale={[4, 12, 4]} material={rightArmMaterials} position={[6, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[4.3, 12.3, 4.3]} material={rightArmMaterials_outer} position={[6, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                </group>
-
-                <group ref={leftLeg}>
-                    <mesh scale={[4, 12, 4]} material={leftLegMaterials} position={[-2, -12, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[4.3, 12.3, 4.3]} material={leftLegMaterials_outer} position={[-2, -12, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                </group>
-
-                <group ref={rightLeg}>
-                    <mesh scale={[4, 12, 4]} material={rightLegMaterials} position={[2, -12, 0]}>
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                    <mesh scale={[4.3, 12.3, 4.3]} material={rightLegMaterials_outer} position={[2, -12, 0]} >
-                        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-                    </mesh>
-                </group>
-
-
-
-
-
-
-            </group>
+            </Suspense>
+            {/* <mesh scale={[10000, 100, 10000]} material={floor} position={[0, -70, 0]} >
+                <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            </mesh> */}
         </>
     )
 }
 
-function getTexture(url) {
+function getTexture(url, repeat) {
     var texture = THREE.ImageUtils.loadTexture(url);
     texture.encoding = THREE.sRGBEncoding;
     texture.magFilter = THREE.NearestFilter;
+    if (repeat) {
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.x = 200;
+        texture.repeat.y = 200;
+        //texture.
+    }
     return texture;
 }

@@ -14,15 +14,26 @@ class PixelUtil {
         this.outerBody = outerBody;
         this.load = load;
         this.colorPicker = colorPicker;
+        this.prevColor = color;
+        this.eraser = false;
     }
 
-    clearColor = () => {
+    clearColor = () => {        
+        this.prevColor = this.color;
         this.color = "";
+        this.eraser = true;
     }
 
     activatePicker = (color) => {
+        this.prevColor = this.color;
         this.colorPicker = true;
-        this.colorController = color
+        this.colorController = color;
+        this.eraser = false;
+    }
+
+    activateColor = () => {
+        this.color = this.prevColor;
+        this.eraser = false;
     }
 
     setColor = (color => {

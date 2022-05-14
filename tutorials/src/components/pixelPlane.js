@@ -9,8 +9,17 @@ var pixelUtil = null;
 const pixelClick = e => {
   if (e.object.visible) {
     if(pixelUtil.colorPicker){
-      pixelUtil.setColor(parseInt("0x" + e.object.material.color.getHexString(), 16))
-      pixelUtil.colorPicker = false;
+      if(e.object.material.opacity!=0){
+        pixelUtil.setColor(parseInt("0x" + e.object.material.color.getHexString(), 16))
+        pixelUtil.colorPicker = false;
+        e.stopPropagation();
+      }
+    } else if(pixelUtil.eraser){
+      e.object.material.color.setHex("FFFFFF");
+      e.object.material.opacity = 0;
+      pixelUtil.pixelDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = ""
+      pixelUtil.opacityDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = 0;
+      e.stopPropagation();
     } else {
       if(pixelUtil.color=="" && pixelUtil.color!="0"){
         e.object.material.color.setHex("FFFFFF");
@@ -21,8 +30,8 @@ const pixelClick = e => {
       }
       pixelUtil.pixelDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = e.object.material.color.getHexString()
       pixelUtil.opacityDict[e.object.position.x + "," + e.object.position.y + "," + e.object.position.z] = 255;
+      e.stopPropagation();
     }
-    e.stopPropagation();
   }
 }
 

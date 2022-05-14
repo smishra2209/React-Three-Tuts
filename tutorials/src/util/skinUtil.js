@@ -91,7 +91,7 @@ function ExportPng(pixelDict, pngIndexDict, opacityDict) {
   return values;
 };
 
-function getPngValue(pixelDict, pngIndexDict, opacityDict, width, height, inputArr) {
+export function getPngValue(pixelDict, pngIndexDict, opacityDict, width, height, inputArr) {
   var canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
@@ -123,7 +123,7 @@ function getPngValue(pixelDict, pngIndexDict, opacityDict, width, height, inputA
   return value;
 }
 
-export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
+export function ImportPng(pixelDict, pngIndexDict, opacityDict) {  
   fetch(testimage)
     .then(image => {
       const canvas = document.createElement('canvas');
@@ -147,9 +147,9 @@ export function ImportPng(pixelDict, pngIndexDict, opacityDict) {
           }
         });
       };
-      imgObj.src = image.url;
+      imgObj.src = image.url;      
+      return true;
     })
-  return true;
 }
 
 function componentToHex(c) {
